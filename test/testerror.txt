@@ -1,0 +1,5 @@
+program hello2 ::
+var A : int;
+{
+A := tt+ff;
+}

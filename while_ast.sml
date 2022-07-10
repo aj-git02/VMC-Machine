@@ -1,0 +1,12 @@
+CM.make("$/basis.cm");
+CM.make("$/ml-yacc-lib.cm");
+use "ASTstruc.sml";
+use "parser.yacc.sig";
+use "parser.yacc.sml";
+use "lexer.lex.sml";
+use "glue.sml";
+use "compiler.sml";
+use "VMC.sml";
+Control.Print.printLength := 900; 
+Control.Print.printDepth := 900; 
+Control.Print.stringDepth := 900; 

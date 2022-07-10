@@ -1,0 +1,8 @@
+program hello ::
+
+
+
+var A, B, C, D : int;
+{
+A := ~4;
+}

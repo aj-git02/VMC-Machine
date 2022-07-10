@@ -1,0 +1,5 @@
+program hello2 ::
+var A : bool;
+{
+A := tt >= (0 < 1) && ! ff;
+}

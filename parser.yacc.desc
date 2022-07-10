@@ -1,0 +1,1461 @@
+
+state 0:
+
+	PROGRAM : . PROG VARIABLE DCOLON BLOCK 
+
+	PROG	shift 1
+
+	PROGRAM	goto 87
+
+	.	error
+
+
+state 1:
+
+	PROGRAM : PROG . VARIABLE DCOLON BLOCK 
+
+	VARIABLE	shift 2
+
+
+	.	error
+
+
+state 2:
+
+	PROGRAM : PROG VARIABLE . DCOLON BLOCK 
+
+	DCOLON	shift 3
+
+
+	.	error
+
+
+state 3:
+
+	PROGRAM : PROG VARIABLE DCOLON . BLOCK 
+
+	VAR	shift 6
+
+	BLOCK	goto 5
+	DECLARATION	goto 4
+
+	.	reduce by rule 3
+
+
+state 4:
+
+	BLOCK : DECLARATION . LBRACE CMDSEQ RBRACE 
+
+	LBRACE	shift 7
+
+
+	.	error
+
+
+state 5:
+
+	PROGRAM : PROG VARIABLE DCOLON BLOCK .  (reduce by rule 0)
+
+
+
+	.	reduce by rule 0
+
+
+state 6:
+
+	DECLARATION : VAR . VLIS TYPE SEMICOLON DECLARATION 
+
+	VARIABLE	shift 9
+
+	VLIS	goto 8
+
+	.	error
+
+
+state 7:
+
+	BLOCK : DECLARATION LBRACE . CMDSEQ RBRACE 
+
+	IF	shift 16
+	VARIABLE	shift 15
+	WH	shift 14
+	READ	shift 13
+	WRITE	shift 12
+
+	CMDSEQ	goto 11
+	CMD	goto 10
+
+	.	reduce by rule 9
+
+
+state 8:
+
+	DECLARATION : VAR VLIS . TYPE SEMICOLON DECLARATION 
+
+	INT	shift 19
+	BOOL	shift 18
+
+	TYPE	goto 17
+
+	.	error
+
+
+state 9:
+
+	VLIS : VARIABLE . COMMA VLIS 
+	VLIS : VARIABLE . COLON 
+
+	COLON	shift 21
+	COMMA	shift 20
+
+
+	.	error
+
+
+state 10:
+
+	CMDSEQ : CMD . SEMICOLON CMDSEQ 
+
+	SEMICOLON	shift 22
+
+
+	.	error
+
+
+state 11:
+
+	BLOCK : DECLARATION LBRACE CMDSEQ . RBRACE 
+
+	RBRACE	shift 23
+
+
+	.	error
+
+
+state 12:
+
+	CMD : WRITE . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 24
+
+	.	error
+
+
+state 13:
+
+	CMD : READ . VARIABLE 
+
+	VARIABLE	shift 33
+
+
+	.	error
+
+
+state 14:
+
+	CMD : WH . EXP DO LBRACE CMDSEQ RBRACE ENDWH 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 34
+
+	.	error
+
+
+state 15:
+
+	CMD : VARIABLE . SET EXP 
+
+	SET	shift 35
+
+
+	.	error
+
+
+state 16:
+
+	CMD : IF . EXP THEN LBRACE CMDSEQ RBRACE ELSE LBRACE CMDSEQ RBRACE ENDIF 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 36
+
+	.	error
+
+
+state 17:
+
+	DECLARATION : VAR VLIS TYPE . SEMICOLON DECLARATION 
+
+	SEMICOLON	shift 37
+
+
+	.	error
+
+
+state 18:
+
+	TYPE : BOOL .  (reduce by rule 7)
+
+
+
+	.	reduce by rule 7
+
+
+state 19:
+
+	TYPE : INT .  (reduce by rule 6)
+
+
+
+	.	reduce by rule 6
+
+
+state 20:
+
+	VLIS : VARIABLE COMMA . VLIS 
+
+	VARIABLE	shift 9
+
+	VLIS	goto 38
+
+	.	error
+
+
+state 21:
+
+	VLIS : VARIABLE COLON .  (reduce by rule 5)
+
+
+
+	.	reduce by rule 5
+
+
+state 22:
+
+	CMDSEQ : CMD SEMICOLON . CMDSEQ 
+
+	IF	shift 16
+	VARIABLE	shift 15
+	WH	shift 14
+	READ	shift 13
+	WRITE	shift 12
+
+	CMDSEQ	goto 39
+	CMD	goto 10
+
+	.	reduce by rule 9
+
+
+state 23:
+
+	BLOCK : DECLARATION LBRACE CMDSEQ RBRACE .  (reduce by rule 1)
+
+
+
+	.	reduce by rule 1
+
+
+state 24:
+
+	CMD : WRITE EXP .  (reduce by rule 14)
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	AND	shift 52
+	OR	shift 51
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 14
+
+
+state 25:
+
+	EXP : NUMERAL .  (reduce by rule 15)
+
+
+
+	.	reduce by rule 15
+
+
+state 26:
+
+	EXP : FF .  (reduce by rule 19)
+
+
+
+	.	reduce by rule 19
+
+
+state 27:
+
+	EXP : TT .  (reduce by rule 18)
+
+
+
+	.	reduce by rule 18
+
+
+state 28:
+
+	EXP : VARIABLE .  (reduce by rule 17)
+
+
+
+	.	reduce by rule 17
+
+
+state 29:
+
+	EXP : PLUS . NUMERAL 
+
+	NUMERAL	shift 53
+
+
+	.	error
+
+
+state 30:
+
+	EXP : NOT . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 54
+
+	.	error
+
+
+state 31:
+
+	EXP : NEG . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 55
+
+	.	error
+
+
+state 32:
+
+	EXP : LPAREN . EXP RPAREN 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 56
+
+	.	error
+
+
+state 33:
+
+	CMD : READ VARIABLE .  (reduce by rule 13)
+
+
+
+	.	reduce by rule 13
+
+
+state 34:
+
+	CMD : WH EXP . DO LBRACE CMDSEQ RBRACE ENDWH 
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	AND	shift 52
+	OR	shift 51
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+	DO	shift 57
+
+
+	.	error
+
+
+state 35:
+
+	CMD : VARIABLE SET . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 58
+
+	.	error
+
+
+state 36:
+
+	CMD : IF EXP . THEN LBRACE CMDSEQ RBRACE ELSE LBRACE CMDSEQ RBRACE ENDIF 
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	AND	shift 52
+	OR	shift 51
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+	THEN	shift 59
+
+
+	.	error
+
+
+state 37:
+
+	DECLARATION : VAR VLIS TYPE SEMICOLON . DECLARATION 
+
+	VAR	shift 6
+
+	DECLARATION	goto 60
+
+	.	reduce by rule 3
+
+
+state 38:
+
+	VLIS : VARIABLE COMMA VLIS .  (reduce by rule 4)
+
+
+
+	.	reduce by rule 4
+
+
+state 39:
+
+	CMDSEQ : CMD SEMICOLON CMDSEQ .  (reduce by rule 8)
+
+
+
+	.	reduce by rule 8
+
+
+state 40:
+
+	EXP : EXP MOD . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 61
+
+	.	error
+
+
+state 41:
+
+	EXP : EXP DIV . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 62
+
+	.	error
+
+
+state 42:
+
+	EXP : EXP TIMES . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 63
+
+	.	error
+
+
+state 43:
+
+	EXP : EXP MINUS . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 64
+
+	.	error
+
+
+state 44:
+
+	EXP : EXP PLUS . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 65
+
+	.	error
+
+
+state 45:
+
+	EXP : EXP NEQ . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 66
+
+	.	error
+
+
+state 46:
+
+	EXP : EXP GEQ . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 67
+
+	.	error
+
+
+state 47:
+
+	EXP : EXP GT . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 68
+
+	.	error
+
+
+state 48:
+
+	EXP : EXP EQ . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 69
+
+	.	error
+
+
+state 49:
+
+	EXP : EXP LEQ . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 70
+
+	.	error
+
+
+state 50:
+
+	EXP : EXP LT . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 71
+
+	.	error
+
+
+state 51:
+
+	EXP : EXP OR . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 72
+
+	.	error
+
+
+state 52:
+
+	EXP : EXP AND . EXP 
+
+	LPAREN	shift 32
+	NEG	shift 31
+	NOT	shift 30
+	PLUS	shift 29
+	VARIABLE	shift 28
+	TT	shift 27
+	FF	shift 26
+	NUMERAL	shift 25
+
+	EXP	goto 73
+
+	.	error
+
+
+state 53:
+
+	EXP : PLUS NUMERAL .  (reduce by rule 16)
+
+
+
+	.	reduce by rule 16
+
+
+state 54:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : NOT EXP .  (reduce by rule 28)
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 28
+
+
+state 55:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : NEG EXP .  (reduce by rule 29)
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+
+
+	.	reduce by rule 29
+
+
+state 56:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+	EXP : LPAREN EXP . RPAREN 
+
+	RPAREN	shift 74
+	AND	shift 52
+	OR	shift 51
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	error
+
+
+state 57:
+
+	CMD : WH EXP DO . LBRACE CMDSEQ RBRACE ENDWH 
+
+	LBRACE	shift 75
+
+
+	.	error
+
+
+state 58:
+
+	CMD : VARIABLE SET EXP .  (reduce by rule 10)
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	AND	shift 52
+	OR	shift 51
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 10
+
+
+state 59:
+
+	CMD : IF EXP THEN . LBRACE CMDSEQ RBRACE ELSE LBRACE CMDSEQ RBRACE ENDIF 
+
+	LBRACE	shift 76
+
+
+	.	error
+
+
+state 60:
+
+	DECLARATION : VAR VLIS TYPE SEMICOLON DECLARATION .  (reduce by rule 2)
+
+
+
+	.	reduce by rule 2
+
+
+state 61:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+	EXP : EXP MOD EXP .  (reduce by rule 34)
+
+	DIV	shift 41
+
+
+	.	reduce by rule 34
+
+
+state 62:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP DIV EXP .  (reduce by rule 33)
+	EXP : EXP . MOD EXP 
+
+
+
+	.	reduce by rule 33
+
+
+state 63:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP TIMES EXP .  (reduce by rule 32)
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 32
+
+
+state 64:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP MINUS EXP .  (reduce by rule 31)
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	PLUS	shift 44
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 31
+
+
+state 65:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP PLUS EXP .  (reduce by rule 30)
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 30
+
+
+state 66:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP NEQ EXP .  (reduce by rule 25)
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LT	shift 50
+	LEQ	shift 49
+	GT	shift 47
+	GEQ	shift 46
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 25
+
+
+state 67:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP GEQ EXP .  (reduce by rule 22)
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LEQ	shift 49
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 22
+
+
+state 68:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP GT EXP .  (reduce by rule 23)
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LT	shift 50
+	LEQ	shift 49
+	GEQ	shift 46
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 23
+
+
+state 69:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP EQ EXP .  (reduce by rule 24)
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LT	shift 50
+	LEQ	shift 49
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 24
+
+
+state 70:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP LEQ EXP .  (reduce by rule 21)
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 21
+
+
+state 71:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP LT EXP .  (reduce by rule 20)
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LEQ	shift 49
+	GEQ	shift 46
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 20
+
+
+state 72:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP . OR EXP 
+	EXP : EXP OR EXP .  (reduce by rule 27)
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	AND	shift 52
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 27
+
+
+state 73:
+
+	EXP : EXP . LT EXP 
+	EXP : EXP . LEQ EXP 
+	EXP : EXP . GEQ EXP 
+	EXP : EXP . GT EXP 
+	EXP : EXP . EQ EXP 
+	EXP : EXP . NEQ EXP 
+	EXP : EXP . AND EXP 
+	EXP : EXP AND EXP .  (reduce by rule 26)
+	EXP : EXP . OR EXP 
+	EXP : EXP . PLUS EXP 
+	EXP : EXP . MINUS EXP 
+	EXP : EXP . TIMES EXP 
+	EXP : EXP . DIV EXP 
+	EXP : EXP . MOD EXP 
+
+	LT	shift 50
+	LEQ	shift 49
+	EQ	shift 48
+	GT	shift 47
+	GEQ	shift 46
+	NEQ	shift 45
+	PLUS	shift 44
+	MINUS	shift 43
+	TIMES	shift 42
+	DIV	shift 41
+	MOD	shift 40
+
+
+	.	reduce by rule 26
+
+
+state 74:
+
+	EXP : LPAREN EXP RPAREN .  (reduce by rule 35)
+
+
+
+	.	reduce by rule 35
+
+
+state 75:
+
+	CMD : WH EXP DO LBRACE . CMDSEQ RBRACE ENDWH 
+
+	IF	shift 16
+	VARIABLE	shift 15
+	WH	shift 14
+	READ	shift 13
+	WRITE	shift 12
+
+	CMDSEQ	goto 77
+	CMD	goto 10
+
+	.	reduce by rule 9
+
+
+state 76:
+
+	CMD : IF EXP THEN LBRACE . CMDSEQ RBRACE ELSE LBRACE CMDSEQ RBRACE ENDIF 
+
+	IF	shift 16
+	VARIABLE	shift 15
+	WH	shift 14
+	READ	shift 13
+	WRITE	shift 12
+
+	CMDSEQ	goto 78
+	CMD	goto 10
+
+	.	reduce by rule 9
+
+
+state 77:
+
+	CMD : WH EXP DO LBRACE CMDSEQ . RBRACE ENDWH 
+
+	RBRACE	shift 79
+
+
+	.	error
+
+
+state 78:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ . RBRACE ELSE LBRACE CMDSEQ RBRACE ENDIF 
+
+	RBRACE	shift 80
+
+
+	.	error
+
+
+state 79:
+
+	CMD : WH EXP DO LBRACE CMDSEQ RBRACE . ENDWH 
+
+	ENDWH	shift 81
+
+
+	.	error
+
+
+state 80:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ RBRACE . ELSE LBRACE CMDSEQ RBRACE ENDIF 
+
+	ELSE	shift 82
+
+
+	.	error
+
+
+state 81:
+
+	CMD : WH EXP DO LBRACE CMDSEQ RBRACE ENDWH .  (reduce by rule 12)
+
+
+
+	.	reduce by rule 12
+
+
+state 82:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ RBRACE ELSE . LBRACE CMDSEQ RBRACE ENDIF 
+
+	LBRACE	shift 83
+
+
+	.	error
+
+
+state 83:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ RBRACE ELSE LBRACE . CMDSEQ RBRACE ENDIF 
+
+	IF	shift 16
+	VARIABLE	shift 15
+	WH	shift 14
+	READ	shift 13
+	WRITE	shift 12
+
+	CMDSEQ	goto 84
+	CMD	goto 10
+
+	.	reduce by rule 9
+
+
+state 84:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ RBRACE ELSE LBRACE CMDSEQ . RBRACE ENDIF 
+
+	RBRACE	shift 85
+
+
+	.	error
+
+
+state 85:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ RBRACE ELSE LBRACE CMDSEQ RBRACE . ENDIF 
+
+	ENDIF	shift 86
+
+
+	.	error
+
+
+state 86:
+
+	CMD : IF EXP THEN LBRACE CMDSEQ RBRACE ELSE LBRACE CMDSEQ RBRACE ENDIF .  (reduce by rule 11)
+
+
+
+	.	reduce by rule 11
+
+
+state 87:
+
+
+	EOF	accept
+
+
+	.	error
+
+196 of 458 action table entries left after compaction
+37 goto table entries

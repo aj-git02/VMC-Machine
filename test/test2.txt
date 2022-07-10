@@ -1,0 +1,31 @@
+program hello231 ::
+
+    var A, B, D : int;
+    var E , F : bool;
+
+{
+    A:=3;
+    B:=0;
+    while A>=0 do {
+        A:=A+B;
+        B:=B-1;
+    }
+    endwh ;
+    read D;
+    write 5+4;
+    E:=ff;
+    F:=ff;
+    if tt then {
+        if E || F then {
+            E:=ff;
+        }
+        else {
+            F:=ff;
+        }
+        endif;
+    }
+    else{
+        E:=E>F;
+    }
+    endif;
+}
